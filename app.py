@@ -1,17 +1,7 @@
 import streamlit as st
-import requests
 
-def read_json_file(file_name):
-  response = requests.get(file_name)
-  data = response.json()
-  return data
-
-st.title("Streamlit App to Read JSON File")
-
-file_name = st.text_input("Enter the file name:")
-
-if file_name:
-  data = read_json_file(file_name)
-  st.json(data)
-
-st.button("Read JSON File")
+uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
